@@ -45,8 +45,7 @@ export function App() {
 
   return (
     <>
-      {dark && <AppBackground />}
-      {dark && <DarkAppBackground />}
+      {dark ? <DarkAppBackground /> : <AppBackground />}
       <button onClick={darkMode} className="dark:text-white p-3 fixed top-4 left-4 z-50">
         <div className="">{dark ? <Sun /> : <Moon />}</div>
       </button>
