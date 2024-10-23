@@ -11,7 +11,7 @@ import { addDoc, collection } from 'firebase/firestore';
 
 export function App() {
   // Defining the available sections
-  type Section = 'skills' | 'projects' | 'links';
+  type Section = 'skills' | 'projects' | 'links' | 'store' | 'portfolio';
   const [dark, setDark] = useState(false);
   const [inquiry, setInquiry] = useState("");
   const [name, setName] = useState("");
@@ -51,6 +51,8 @@ export function App() {
     skills: false,
     projects: false,
     links: false,
+    store: false,
+    portfolio: false
   });
 
   // Function to toggle any section dynamically
@@ -103,7 +105,7 @@ export function App() {
                   {/* Languages Section */}
                   <div className="ml-4 mb-6 dark:text-white">
                     Languages:
-                    <div className="ml-6 mt-2 dark:text-white">C++, C#, Java, Python, JS/TS</div>
+                    <div className="ml-6 mt-2 dark:text-white">C++, C#, C, Java, Python, JS/TS</div>
                   </div>
 
                   {/* Backend Section */}
@@ -128,7 +130,7 @@ export function App() {
                     </div>
                     <div className="ml-6 mt-4 dark:text-white">
                       2. Tools
-                      <p className="ml-4 mt-1 dark:text-white">Vite</p>
+                      <p className="ml-4 mt-1 dark:text-white">Vite, Firebase: Auth, Hosting</p>
                     </div>
                   </div>
                 </div>
@@ -146,12 +148,49 @@ export function App() {
 
               {/* Conditionally render the Projects content */}
               {openSections.projects && (
-                <div className="ml-4 mb-6 dark:text-white space-y-2">
-                  <div>Portfolio</div>
+                <div className="ml-4 mb-6 dark:text-white space-y-3">
+
                   <div>Capstone</div>
                   <div>SVG</div>
-                  <div>Online Store</div>
                   <div>Minesweeper</div>
+                  <div>
+                    <a>
+                      Portfolio (Under Construction)
+                    </a>
+                    <button onClick={() => toggleSection('portfolio')} className=" relative top-1 left-1">
+                      {/* Rotate the arrow when open */}
+                      <div className={openSections.portfolio ? 'transform rotate-90 transition-transform duration-300 relative top-0.5 dark:text-white' : 'top-0.5 transition-transform duration-300 relative  dark:text-white'}>
+                        <RightArrow />
+                      </div>
+                    </button>
+                    <div className="">
+                      {openSections.portfolio && (
+                        <p className="ml-5 pb-3">You're looking at it :D</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <a href="https://thebulk.org" className=" dark:text-white" target="_blank">Online Store (Under Construction)</a>
+                    <a href="https://thebulk.org" className=" dark:text-white px-1" target="_blank"><ExternalLink /></a>
+                    <button onClick={() => toggleSection('store')} className="relative top-2 left-1">
+                      {/* Rotate the arrow when open */}
+                      <div className={openSections.store ? 'transform rotate-90 transition-transform duration-300 relative -top-2 dark:text-white' : 'transition-transform duration-300 relative -top-2 dark:text-white'}>
+                        <RightArrow />
+                      </div>
+                    </button>
+                  </div>
+                  <div>
+                    {openSections.store && (
+                      <div className="pb-2">
+                        <div className="ml-5 dark:text-white">Tech Stack:</div>
+                        <div className="ml-10 dark:text-white">- React</div>
+                        <div className="ml-10 dark:text-white">- Tailwind</div>
+                        <div className="ml-10 dark:text-white">- Firebase</div>
+                        <div className="ml-10 dark:text-white">- Vite</div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -222,11 +261,11 @@ export function App() {
               </div>
               <button className="underline mt-2 dark:text-white" onClick={createMessage}>Send</button>
               {errorMessage && isTimeout && (
-                                <p className="text-red-500 text-sm">{errorMessage}</p>
-                            )}
+                <p className="text-red-500 text-sm">{errorMessage}</p>
+              )}
               {successMessage && isTimeout && (
-                                <p className="text-green-500 text-sm">{successMessage}</p>
-                            )}
+                <p className="text-green-500 text-sm">{successMessage}</p>
+              )}
               <br />
               <br />
               <br />
